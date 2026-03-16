@@ -1,19 +1,23 @@
 from fastapi import APIRouter, UploadFile, File
 import shutil
 import uuid
+import os
 
 from app.utils.pdf_loader import load_pdf
 from app.database.mongodb import resume_collection
 
 router = APIRouter()
 
-@router.post("/upload")
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)   # Ensure folder exists
 
+
+@router.post("/upload")
 async def upload_resume(file: UploadFile = File(...)):
 
     file_id = str(uuid.uuid4())
 
-    path = f"uploads/{file_id}.pdf"
+    path = f"{UPLOAD_DIR}/{file_id}.pdf"
 
     with open(path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
