@@ -1,4 +1,4 @@
-```javascript
+
 import { useState } from "react";
 import API from "../api";
 
@@ -81,4 +81,3 @@ function UploadResume({ setResumeId }) {
 }
 
 export default UploadResume;
-```
