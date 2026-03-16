@@ -6,28 +6,25 @@ from app.api.routes.analysis_routes import router as analysis_router
 
 app = FastAPI(title="AI Resume Analyzer")
 
-
 # Allowed frontend origins
 origins = [
     "http://localhost:5173",
-    "http://127.0.0.1:5173"
+    "http://127.0.0.1:5173",
+    "https://your-vercel-domain.vercel.app"
 ]
 
-
-# Add CORS Middleware
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,   # Frontend URLs
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],     # Allow all HTTP methods
-    allow_headers=["*"],     # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
-
 
 # Include routers
 app.include_router(resume_router, prefix="/resume")
 app.include_router(analysis_router, prefix="/analysis")
-
 
 @app.get("/")
 def root():
